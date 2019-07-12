@@ -1,17 +1,18 @@
 #include "DHT.h"
+#include <Wire.h> //I2C library
+#include <RtcDS3231.h> //RTC library
 #define DHTPIN 4 //ACA EL PIN NO VA EL PIN (EJM  2 DEL D2), VA EL GPIO REAL DEL PUERTO DIGITAL.
 #define DHTTYPE DHT21
 DHT dht(DHTPIN, DHTTYPE);
 
-#include <Wire.h> //I2C library
-#include <RtcDS3231.h> //RTC library
+
 RtcDS3231<TwoWire> rtcObject(Wire);
 
 
 void setup() {
-     Serial.begin(115200);  //Starts serial connection
-     rtcObject.Begin();     //Starts I2C
-     //RtcDateTime currentTime = RtcDateTime(__DATE__, __TIME__);
+     Serial.begin(115200);  
+     rtcObject.Begin();    
+     RtcDateTime currentTime = RtcDateTime(__DATE__, __TIME__);
      rtcObject.SetDateTime(currentTime);
    
      dht.begin();

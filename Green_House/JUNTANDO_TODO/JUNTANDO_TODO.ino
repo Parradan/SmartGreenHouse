@@ -15,7 +15,7 @@
 #define DHTPIN2 2 //
 #define DHTTYPE DHT21
 #define chipSelect 15
-#define LED_R 3 //led rojo  RX
+#define LED_R 1    //led rojo  TX
 #define AUX 16 //SALIDA AUX
 
 
@@ -40,7 +40,6 @@ void setup () {
     //SETUP DE LA SD//
     //////////////////
     SD.begin(chipSelect);
-    
     /////////////////
     //SETUP DEL RTC//
     /////////////////
@@ -74,8 +73,8 @@ void loop () {
   Fecha_s= String(dia)+"-"+String(mes)+"-"+String(ano);
   Hora_s= String(hora)+":"+String(minutos);
   //flag = escritura_SD(Fecha_s,Hora_s,t,h);
-  
   digitalWrite(LED_R,flag);
+  
   if( minutos==0 && segundos<=1){
     flag = escritura_SD(Fecha_s,Hora_s,t,h);
     delay(1010);
@@ -105,7 +104,7 @@ void loop () {
 
  void RTCinit() {
     Rtc.Begin();
-   // Rtc.SetDateTime(RtcDateTime(__DATE__,__TIME__)); //este se debe descomentar para cargar la hora desde la computadora.
+    //Rtc.SetDateTime(RtcDateTime(__DATE__,__TIME__)); //este se debe descomentar para cargar la hora desde la computadora.
     Rtc.Enable32kHzPin(false);
     Rtc.SetSquareWavePin(DS3231SquareWavePin_ModeNone); 
   }
@@ -126,7 +125,7 @@ boolean escritura_SD(String dia, String hora, float temperatura, int humedad){
   if(SD.exists(nombre)){
     if (archivo) {
       archivo.print(cadena);
-      digitalWrite(LED_R,HIGH);
+      //digitalWrite(LED_R,HIGH);
       return true;
     } 
   }

@@ -104,9 +104,9 @@ void loop () {
 
  void RTCinit() {
     Rtc.Begin();
-    //Rtc.SetDateTime(RtcDateTime(__DATE__,__TIME__)); //este se debe descomentar para cargar la hora desde la computadora.
+    Rtc.SetDateTime(RtcDateTime(__DATE__,__TIME__)); //este se debe descomentar para cargar la hora desde la computadora.
     Rtc.Enable32kHzPin(false);
-    Rtc.SetSquareWavePin(DS3231SquareWavePin_ModeNone); 
+    // Rtc.SetSquareWavePin(DS3231SquareWavePin_ModeNone); 
   }
 
 boolean escritura_SD(String dia, String hora, float temperatura, int humedad){
@@ -119,7 +119,7 @@ boolean escritura_SD(String dia, String hora, float temperatura, int humedad){
    *  Salida: archivo con nombre "dd-mm-aaaa.txt" y formado de datos: hh:mm,tt.t,hh
    */
   String cadena;
-  String nombre = dia + ".txt";
+  String nombre = Fecha_s + ".txt";
   archivo = SD.open(nombre, 0x04 | 0x02 | 0x10);  //se definen los permisos del archivo 0x04 APPEND, 0x02 WRITE, 0x10 CREATE
   cadena = hora + "," + String(temperatura) + "," + String(humedad) + "\r\n"; //aca van los datos armardos
   if(SD.exists(nombre)){

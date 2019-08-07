@@ -5,7 +5,7 @@ RtcDS3231<TwoWire> Rtc(Wire);
 
 
 void setup () {
-    Serial.begin(57600);
+    Serial.begin(9600);
     Rtc.Begin();
 
     RtcDateTime compiled = RtcDateTime(__DATE__, __TIME__);
